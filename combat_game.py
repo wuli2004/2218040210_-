@@ -39,6 +39,23 @@ class Combatant:
                 f"Magic: {self.magic}\n"
                 f"Ranged: {self.ranged}\n")
 
+class Ranger(Combatant):
+     def __init__(self, name, max_health, strength, defence, magic, ranged):
+        super().__init__(name, max_health, strength, defence, magic, ranged)
+        self.arrows = 3
 
+     def calculate_damage(self):
+        if self.arrows > 0:
+            self.arrows -= 1
+            damage = self.ranged
+            print(f"{self.name} fires an arrow for {damage} damage!")
+        else:
+            damage = self.strength
+            print(f"{self.name} attacks for {damage} damage!")
+        return damage
+
+     def reset(self):
+        super().reset()
+        self.arrows = 3
 
 
