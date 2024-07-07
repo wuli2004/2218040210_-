@@ -57,5 +57,23 @@ class Ranger(Combatant):
      def reset(self):
         super().reset()
         self.arrows = 3
+class Warrior(Combatant):
+    def __init__(self, name, max_health, strength, defence, magic, ranged, armour_value):
+        super().__init__(name, max_health, strength, defence, magic, ranged)
+        self.armour_value = armour_value
+        self.original_armour_value = armour_value
 
+    def take_damage(self, damage):
+        if self.armour_value > 0:
+            damage_blocked = min(damage, 5)
+            self.armour_value -= damage_blocked
+            if self.armour_value <= 0:
+                print(f"{self.name}'s armour shattered!")
+        else:
+            damage_blocked = 0
+        super().take_damage(damage - damage_blocked)
+
+    def reset(self):
+        super().reset()
+        self.armour_value = self.original_armour_value
 
